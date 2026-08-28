@@ -1,0 +1,17 @@
+# Flutter temporary & build outputs
+Flutter/.dart_tool/
+Flutter/build/
+Flutter/.flutter-plugins
+Flutter/.flutter-plugins-dependencies
+
+# Arduino / PlatformIO build artifacts
+Arduino/build/
+Arduino/.pio/
+*.hex
+*.bin
+*.elf
+
+# System & Editor settings
+.DS_Store
+.vscode/
+.idea/
