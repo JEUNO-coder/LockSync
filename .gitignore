@@ -3,6 +3,11 @@ Flutter/.dart_tool/
 Flutter/build/
 Flutter/.flutter-plugins
 Flutter/.flutter-plugins-dependencies
+Flutter/pubspec.lock
+Flutter/android/.gradle/
+Flutter/android/app/build/
+Flutter/ios/Pods/
+Flutter/ios/.symlinks/
 
 # Arduino / PlatformIO build artifacts
 Arduino/build/
@@ -15,3 +20,4 @@ Arduino/.pio/
 .DS_Store
 .vscode/
 .idea/
+*.swp
