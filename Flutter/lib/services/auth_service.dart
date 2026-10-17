@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_service.dart';
+import 'lock_service.dart';
 
 class AuthResult {
   final bool success;
@@ -228,6 +229,7 @@ class AuthService {
     }
 
     masterPin = cleanPassword;
+    await LockService.instance.updatePasscode(cleanPassword);
 
     final auth = _auth;
     if (auth != null && auth.currentUser != null) {

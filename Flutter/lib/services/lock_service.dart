@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import '../models/lock_model.dart';
+import 'auth_service.dart';
 import 'firebase_service.dart';
 
 class LockService {
@@ -133,7 +134,11 @@ class LockService {
       return db.ref('lockers/$cleanId').onValue.map((event) {
         final val = event.snapshot.value;
         if (val is Map) {
-          return LockDevice.fromMap(lockId, val);
+          final device = LockDevice.fromMap(lockId, val);
+          if (device.passcode.isNotEmpty) {
+            AuthService.instance.updateMasterPin(device.passcode);
+          }
+          return device;
         }
         return _currentDevice;
       });
@@ -543,5 +548,25 @@ class LockService {
       }
     }
     return _currentDevice.isOnline;
+  }
+
+  /// Updates master PIN passcode in Firebase RTDB
+  Future<void> updatePasscode(
+    String newPasscode, [
+    String lockId = defaultLockId,
+  ]) async {
+    final cleanPin = newPasscode.trim();
+    if (cleanPin.length < 6) return;
+
+    final ref = _lockRef(lockId);
+    if (ref != null) {
+      try {
+        await ref.update({'passcode': cleanPin});
+        return;
+      } catch (_) {}
+    }
+
+    _currentDevice = _currentDevice.copyWith(passcode: cleanPin);
+    _deviceStreamController.add(_currentDevice);
   }
 }

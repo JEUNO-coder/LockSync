@@ -161,6 +161,7 @@ class LockDevice {
   final EnrollStatus enrollStatus;
   final String? workflowId;
   final String? lastAction;
+  final String passcode;
   final Map<String, FingerprintSlot> registeredSlots;
 
   const LockDevice({
@@ -181,6 +182,7 @@ class LockDevice {
     this.enrollStatus = EnrollStatus.idle,
     this.workflowId,
     this.lastAction = 'INITIALIZED',
+    this.passcode = '123456',
     this.registeredSlots = const {},
   });
 
@@ -202,6 +204,7 @@ class LockDevice {
     EnrollStatus? enrollStatus,
     String? workflowId,
     String? lastAction,
+    String? passcode,
     Map<String, FingerprintSlot>? registeredSlots,
   }) {
     return LockDevice(
@@ -222,6 +225,7 @@ class LockDevice {
       enrollStatus: enrollStatus ?? this.enrollStatus,
       workflowId: workflowId ?? this.workflowId,
       lastAction: lastAction ?? this.lastAction,
+      passcode: passcode ?? this.passcode,
       registeredSlots: registeredSlots ?? this.registeredSlots,
     );
   }
@@ -245,6 +249,7 @@ class LockDevice {
       'enrollStatus': enrollStatus.asString,
       'workflowId': workflowId,
       'lastAction': lastAction,
+      'passcode': passcode,
       'registeredSlots': registeredSlots.map((k, v) => MapEntry(k, v.toMap())),
     };
   }
@@ -290,6 +295,7 @@ class LockDevice {
       enrollStatus: EnrollStatus.fromString(map['enrollStatus']?.toString()),
       workflowId: map['workflowId']?.toString(),
       lastAction: map['lastAction']?.toString() ?? 'INITIALIZED',
+      passcode: map['passcode']?.toString() ?? '123456',
       registeredSlots: slots,
     );
   }
